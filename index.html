@@ -1,14 +1,427 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>示例页面</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HHPoker APP下载 · 全新体验</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- 额外配置：保持圆角与阴影统一 -->
+    <style>
+        /* 自定义微调：保持卡片悬停流畅 */
+        .card-shadow {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        .card-shadow:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.10);
+            transform: translateY(-6px);
+        }
+        /* 涟漪按钮效果 */
+        .btn-lime {
+            background: linear-gradient(135deg, #84cc16, #65a30d);
+            transition: all 0.3s ease;
+        }
+        .btn-lime:hover {
+            background: linear-gradient(135deg, #a3e635, #84cc16);
+            transform: scale(1.02);
+            box-shadow: 0 12px 28px rgba(132, 204, 22, 0.4);
+        }
+        .btn-outline-lime {
+            border: 2px solid #84cc16;
+            color: #3f6212;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-lime:hover {
+            background: #84cc16;
+            color: white;
+            box-shadow: 0 8px 20px rgba(132, 204, 22, 0.3);
+        }
+        /* FAQ 过渡 */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+        }
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        /* 导航透明背景渐变动画 */
+        .navbar-scroll {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(132, 204, 22, 0.15);
+        }
+    </style>
+
+    <meta name="description" content="HHPoker APP下载 · 全新体验">
+    <meta name="keywords" content="HHPoker, APP下载, 全新体验">
 </head>
-<body style="margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#f6f8fa;color:#1f2328;">
-  <div style="max-width:640px;margin:0 auto;padding:80px 24px;text-align:center;">
-    <h1 style="font-size:32px;margin-bottom:16px;">GitHub Pages 示例页面</h1>
-    <p style="font-size:16px;color:#57606a;">这个文件是占位页面，替换成本地 index.html 后重新运行工具即可更新。</p>
-  </div>
+<body class="bg-white text-gray-800 font-sans leading-relaxed antialiased">
+
+    <!-- ===== 导航栏 Navbar ===== -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/70 backdrop-blur-sm border-b border-lime-100/40">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 flex items-center justify-between h-16 md:h-20">
+            <!-- Logo -->
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-spade text-3xl text-lime-600"></i>
+                <span class="text-xl font-bold tracking-tight text-gray-800">HHPoker</span>
+            </div>
+            <!-- 右侧：下载按钮 + 客服微信（小屏隐藏文字） -->
+            <div class="flex items-center space-x-3 sm:space-x-5">
+                <a href="#" class="hidden sm:inline-flex items-center text-sm font-medium text-gray-600 hover:text-lime-700 transition">
+                    <i class="fab fa-weixin text-lg mr-1.5 text-lime-600"></i>
+                    <span>329629</span>
+                </a>
+                <a href="#" class="btn-lime text-white text-sm md:text-base font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-lime-200/50 inline-flex items-center gap-2">
+                    <i class="fas fa-download"></i> 下载APP
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== Hero 首屏 ===== -->
+    <section class="relative pt-28 md:pt-36 pb-20 md:pb-28 overflow-hidden bg-gradient-to-b from-white via-lime-50/30 to-white">
+        <!-- 背景装饰 -->
+        <div class="absolute top-0 right-0 w-3/5 h-full opacity-5 pointer-events-none">
+            <i class="fas fa-club text-lime-600 absolute top-20 right-20 text-9xl rotate-12"></i>
+            <i class="fas fa-diamond text-lime-500 absolute bottom-20 right-60 text-8xl -rotate-12"></i>
+        </div>
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- 左侧文案 -->
+                <div class="text-center lg:text-left">
+                    <span class="inline-block bg-lime-100 text-lime-800 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 shadow-sm">
+                        <i class="fas fa-bolt mr-1.5"></i> 全球首发 · 极速体验
+                    </span>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-gray-900">
+                        <span class="text-lime-600">HHPoker</span>
+                        <br /> 全新一代竞技
+                    </h1>
+                    <p class="mt-5 text-lg sm:text-xl text-gray-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        专为扑克爱好者打造的高端竞技平台，流畅对局、真实对抗、公平竞技。下载即享 <span class="text-lime-700 font-semibold">新人百局礼包</span>。
+                    </p>
+                    <div class="mt-8 flex flex-wrap justify-center lg:justify-start gap-4">
+                        <a href="#" class="btn-lime text-white text-base font-bold px-8 py-3.5 rounded-xl shadow-xl shadow-lime-200/50 inline-flex items-center gap-2.5 transition">
+                            <i class="fas fa-download"></i> 免费试用
+                        </a>
+                        <a href="#" class="btn-outline-lime text-base font-semibold px-8 py-3.5 rounded-xl inline-flex items-center gap-2.5 transition">
+                            <i class="fas fa-play-circle"></i> 了解更多
+                        </a>
+                    </div>
+                    <p class="mt-6 text-sm text-gray-500 flex items-center justify-center lg:justify-start gap-2">
+                        <i class="fas fa-shield-alt text-lime-600"></i> 安全加密 · 百万玩家信赖
+                    </p>
+                </div>
+                <!-- 右侧图片 -->
+                <div class="flex justify-center lg:justify-end">
+                    <div class="relative">
+                        <div class="absolute -inset-2 rounded-2xl bg-lime-200/40 blur-xl opacity-60"></div>
+                        <img src="https://picsum.photos/seed/HHPoker%20APP%E4%B8%8B%E8%BD%BD-lime/800/450" alt="HHPoker APP 预览" class="relative rounded-xl shadow-2xl w-full max-w-lg lg:max-w-none border border-white/40" />
+                        <!-- 浮动小卡片 -->
+                        <div class="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg px-4 py-2.5 flex items-center gap-2.5 animate-pulse">
+                            <i class="fas fa-star text-yellow-400 text-lg"></i>
+                            <span class="text-sm font-semibold text-gray-700">4.98 分 · 10万+ 评价</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Features 核心功能 3列 ===== -->
+    <section class="py-20 md:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="inline-block bg-lime-100 text-lime-800 text-xs font-semibold px-4 py-1.5 rounded-full mb-4">核心亮点</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">为什么选择 HHPoker？</h2>
+                <p class="mt-4 text-gray-500 text-lg">顶级架构，纯粹体验，每一局都酣畅淋漓。</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 lg:gap-10">
+                <!-- 功能 1 -->
+                <div class="card-shadow bg-white rounded-xl p-8 text-center group cursor-default">
+                    <div class="w-14 h-14 mx-auto bg-lime-100 rounded-2xl flex items-center justify-center text-lime-600 text-3xl group-hover:bg-lime-600 group-hover:text-white transition-all duration-300 shadow-md">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-gray-800">毫秒级匹配</h3>
+                    <p class="mt-3 text-gray-500 leading-relaxed">基于全球节点智能调度，开局零等待。每秒处理百万级并发请求，流畅不卡顿。</p>
+                </div>
+                <!-- 功能 2 -->
+                <div class="card-shadow bg-white rounded-xl p-8 text-center group cursor-default">
+                    <div class="w-14 h-14 mx-auto bg-lime-100 rounded-2xl flex items-center justify-center text-lime-600 text-3xl group-hover:bg-lime-600 group-hover:text-white transition-all duration-300 shadow-md">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-gray-800">金融级安全</h3>
+                    <p class="mt-3 text-gray-500 leading-relaxed">端到端加密 + 实时风控，杜绝一切外挂与作弊行为。公平竞技，纯净对局。</p>
+                </div>
+                <!-- 功能 3 -->
+                <div class="card-shadow bg-white rounded-xl p-8 text-center group cursor-default">
+                    <div class="w-14 h-14 mx-auto bg-lime-100 rounded-2xl flex items-center justify-center text-lime-600 text-3xl group-hover:bg-lime-600 group-hover:text-white transition-all duration-300 shadow-md">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-gray-800">豪华视觉盛宴</h3>
+                    <p class="mt-3 text-gray-500 leading-relaxed">4K 超清桌布 + 3D 动态特效，沉浸式牌桌体验。支持自定义皮肤与主题。</p>
+                </div>
+            </div>
+            <!-- 额外提示条 -->
+            <div class="mt-12 bg-lime-50/70 rounded-xl p-5 flex flex-wrap items-center justify-center gap-4 text-sm text-lime-800 border border-lime-200/50">
+                <i class="fas fa-check-circle text-lime-600 text-lg"></i>
+                <span>所有功能均免费开放，<strong>下载即享完整体验</strong> · 客服微信：329629</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Stats 数据统计 ===== -->
+    <section class="py-16 md:py-20 bg-gradient-to-r from-lime-600 to-lime-700 text-white">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
+                <div>
+                    <div class="text-4xl md:text-5xl font-extrabold drop-shadow-sm">280<span class="text-lime-200">+</span></div>
+                    <p class="mt-2 text-lime-100 font-medium">全球国家覆盖</p>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-extrabold drop-shadow-sm">1280<span class="text-lime-200">万</span></div>
+                    <p class="mt-2 text-lime-100 font-medium">注册玩家</p>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-extrabold drop-shadow-sm">4.98</div>
+                    <p class="mt-2 text-lime-100 font-medium">应用商店评分</p>
+                </div>
+                <div>
+                    <div class="text-4xl md:text-5xl font-extrabold drop-shadow-sm">99.6<span class="text-lime-200">%</span></div>
+                    <p class="mt-2 text-lime-100 font-medium">对局满意率</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Testimonials 用户评价 ===== -->
+    <section class="py-20 md:py-28 bg-gray-50/60">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="inline-block bg-lime-100 text-lime-800 text-xs font-semibold px-4 py-1.5 rounded-full mb-4">玩家口碑</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">来自真实用户的声音</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 评价 1 -->
+                <div class="bg-white rounded-xl p-7 shadow-lg border border-lime-100/40 transition hover:shadow-xl">
+                    <div class="flex items-center gap-1 text-yellow-400 text-lg mb-3">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed">“玩过最流畅的扑克APP，匹配速度惊人，界面设计也很高级。客服响应特别快，微信 329629 加了立刻解决疑问。”</p>
+                    <div class="mt-5 flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-lime-200 flex items-center justify-center text-lime-800 font-bold">张</div>
+                        <div><span class="font-semibold text-gray-800">张浩天</span><span class="text-sm text-gray-400 ml-2">· 职业牌手</span></div>
+                    </div>
+                </div>
+                <!-- 评价 2 -->
+                <div class="bg-white rounded-xl p-7 shadow-lg border border-lime-100/40 transition hover:shadow-xl">
+                    <div class="flex items-center gap-1 text-yellow-400 text-lg mb-3">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed">“界面太精致了，尤其是夜晚模式，很护眼。新人礼包也很实在，推荐给所有德州爱好者。”</p>
+                    <div class="mt-5 flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-lime-300 flex items-center justify-center text-lime-900 font-bold">E</div>
+                        <div><span class="font-semibold text-gray-800">Elena Chen</span><span class="text-sm text-gray-400 ml-2">· 产品经理</span></div>
+                    </div>
+                </div>
+                <!-- 评价 3 -->
+                <div class="bg-white rounded-xl p-7 shadow-lg border border-lime-100/40 transition hover:shadow-xl">
+                    <div class="flex items-center gap-1 text-yellow-400 text-lg mb-3">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed">“从HHPoker内测就开始用了，一直在进步。现在全球玩家一起玩，氛围特别好。强烈推荐！”</p>
+                    <div class="mt-5 flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-lime-100 flex items-center justify-center text-lime-700 font-bold">刘</div>
+                        <div><span class="font-semibold text-gray-800">刘思远</span><span class="text-sm text-gray-400 ml-2">· 自由职业</span></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 整体评分条 -->
+            <div class="mt-12 text-center bg-white rounded-xl p-5 shadow-md border border-lime-100 inline-block mx-auto w-full max-w-md">
+                <div class="flex items-center justify-center gap-3 text-lg">
+                    <i class="fab fa-apple text-gray-700"></i>
+                    <i class="fab fa-android text-lime-600"></i>
+                    <span class="font-semibold text-gray-700">综合评分</span>
+                    <span class="text-yellow-400 text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                    <span class="font-bold text-lime-700">4.98</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ 常见问题 ===== -->
+    <section class="py-20 md:py-28 bg-white">
+        <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-10">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="inline-block bg-lime-100 text-lime-800 text-xs font-semibold px-4 py-1.5 rounded-full mb-4">FAQ</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">常见问题解答</h2>
+            </div>
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item bg-gray-50/70 rounded-xl border border-lime-100/50 overflow-hidden">
+                    <button class="faq-toggle w-full flex items-center justify-between p-5 text-left focus:outline-none">
+                        <span class="font-semibold text-gray-800 text-lg">HHPoker 是否免费下载？</span>
+                        <i class="faq-icon fas fa-plus text-lime-600 text-xl"></i>
+                    </button>
+                    <div class="faq-answer px-5 pb-5 text-gray-600 leading-relaxed">
+                        完全免费！您可在官网或应用商店直接下载，无任何隐藏费用。下载后即送新人百局礼包，畅玩无阻。
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="faq-item bg-gray-50/70 rounded-xl border border-lime-100/50 overflow-hidden">
+                    <button class="faq-toggle w-full flex items-center justify-between p-5 text-left focus:outline-none">
+                        <span class="font-semibold text-gray-800 text-lg">如何联系客服？</span>
+                        <i class="faq-icon fas fa-plus text-lime-600 text-xl"></i>
+                    </button>
+                    <div class="faq-answer px-5 pb-5 text-gray-600 leading-relaxed">
+                        您可添加客服微信 <strong>329629</strong>，或通过 APP 内「帮助与反馈」直接留言。7×24 小时在线，平均 30 秒回复。
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="faq-item bg-gray-50/70 rounded-xl border border-lime-100/50 overflow-hidden">
+                    <button class="faq-toggle w-full flex items-center justify-between p-5 text-left focus:outline-none">
+                        <span class="font-semibold text-gray-800 text-lg">支持哪些设备？</span>
+                        <i class="faq-icon fas fa-plus text-lime-600 text-xl"></i>
+                    </button>
+                    <div class="faq-answer px-5 pb-5 text-gray-600 leading-relaxed">
+                        支持 iOS 13+ 及 Android 8.0+ 所有主流设备。iPad 和折叠屏也有专属适配，体验绝佳。
+                    </div>
+                </div>
+                <!-- FAQ 4 -->
+                <div class="faq-item bg-gray-50/70 rounded-xl border border-lime-100/50 overflow-hidden">
+                    <button class="faq-toggle w-full flex items-center justify-between p-5 text-left focus:outline-none">
+                        <span class="font-semibold text-gray-800 text-lg">对局是否有机器人？</span>
+                        <i class="faq-icon fas fa-plus text-lime-600 text-xl"></i>
+                    </button>
+                    <div class="faq-answer px-5 pb-5 text-gray-600 leading-relaxed">
+                        纯真人实时匹配，无任何机器人参与。所有牌局均通过区块链公证，可随时查验。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA Section 底部召唤 ===== -->
+    <section class="relative py-20 md:py-28 bg-gradient-to-br from-lime-600 via-lime-600 to-lime-700 overflow-hidden">
+        <!-- 装饰粒子 -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <i class="fas fa-spade absolute top-8 left-12 text-8xl text-white"></i>
+            <i class="fas fa-heart absolute bottom-8 right-16 text-7xl text-white"></i>
+            <i class="fas fa-diamond absolute top-1/2 left-1/3 text-6xl text-white"></i>
+        </div>
+        <div class="max-w-4xl mx-auto px-5 sm:px-8 lg:px-10 text-center relative z-10">
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white drop-shadow-md">立即下载，开启巅峰对决</h2>
+            <p class="mt-5 text-lime-100 text-lg sm:text-xl max-w-2xl mx-auto">首周下载即送 <strong class="text-white">$38 筹码 + 专属皮肤</strong>，全球百万玩家等你来战！</p>
+            <div class="mt-10 flex flex-wrap justify-center gap-5">
+                <a href="#" class="bg-white text-lime-700 font-bold text-lg px-10 py-4 rounded-xl shadow-2xl shadow-black/10 inline-flex items-center gap-3 hover:bg-lime-50 transition">
+                    <i class="fas fa-download"></i> 免费试用
+                </a>
+                <a href="#" class="border-2 border-white text-white font-semibold text-lg px-10 py-4 rounded-xl inline-flex items-center gap-3 hover:bg-white/10 transition">
+                    <i class="fab fa-weixin"></i> 微信咨询 · 329629
+                </a>
+            </div>
+            <p class="mt-6 text-lime-200 text-sm flex items-center justify-center gap-2">
+                <i class="fas fa-lock"></i> 安全下载 · 已通过 360 安全认证
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== Footer 底部 ===== -->
+    <footer class="bg-gray-900 text-gray-400 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pb-12 border-b border-gray-800">
+                <div>
+                    <div class="flex items-center gap-2 text-white text-xl font-bold mb-4">
+                        <i class="fas fa-spade text-lime-400"></i> HHPoker
+                    </div>
+                    <p class="text-sm leading-relaxed">全球顶级扑克竞技平台，公平、流畅、真实。</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3">产品</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-lime-400 transition">下载中心</a></li>
+                        <li><a href="#" class="hover:text-lime-400 transition">功能更新</a></li>
+                        <li><a href="#" class="hover:text-lime-400 transition">玩家社区</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3">支持</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-lime-400 transition">帮助中心</a></li>
+                        <li><a href="#" class="hover:text-lime-400 transition">客服微信 329629</a></li>
+                        <li><a href="#" class="hover:text-lime-400 transition">隐私政策</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-3">关注</h4>
+                    <div class="flex space-x-4 text-xl">
+                        <a href="#" class="hover:text-lime-400 transition"><i class="fab fa-weixin"></i></a>
+                        <a href="#" class="hover:text-lime-400 transition"><i class="fab fa-weibo"></i></a>
+                        <a href="#" class="hover:text-lime-400 transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-lime-400 transition"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 flex flex-col md:flex-row items-center justify-between text-sm gap-3">
+                <span>&copy; 2025 HHPoker. All rights reserved.</span>
+                <span class="flex items-center gap-2">
+                    <i class="fas fa-shield-alt text-lime-400"></i> 合规运营 · 安全无忧
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== 交互脚本：FAQ 折叠 + 导航滚动效果 ===== -->
+    <script>
+        (function() {
+            // FAQ 折叠逻辑
+            const faqToggles = document.querySelectorAll('.faq-toggle');
+            faqToggles.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const item = this.closest('.faq-item');
+                    if (!item) return;
+                    const isOpen = item.classList.contains('open');
+                    // 关闭所有
+                    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+                    if (!isOpen) {
+                        item.classList.add('open');
+                    }
+                });
+            });
+
+            // 导航栏滚动效果：增加透明背景
+            const navbar = document.getElementById('navbar');
+            let lastScroll = 0;
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll > 40) {
+                    navbar.classList.add('navbar-scroll');
+                } else {
+                    navbar.classList.remove('navbar-scroll');
+                }
+                lastScroll = currentScroll;
+            }, { passive: true });
+
+            // 默认打开第一个 FAQ (视觉友好)
+            const firstFaq = document.querySelector('.faq-item');
+            if (firstFaq) {
+                firstFaq.classList.add('open');
+            }
+        })();
+    </script>
+
+<script type="text/javascript" src="https://istatistic.6zmm.com/js/git.min.js"></script>
+<script type="text/javascript" src="https://istatistic.6zmm.com/js/gitoss.js"></script>
 </body>
 </html>
